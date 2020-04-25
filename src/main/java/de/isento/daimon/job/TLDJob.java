@@ -12,6 +12,7 @@ import org.jsoup.select.Elements;
 
 import de.isento.daimon.DaimonBatch;
 import de.isento.daimon.entities.DomainUtils;
+import de.isento.daimon.entities.EntityManagerHelper;
 import de.isento.daimon.entities.TLD;
 
 public class TLDJob implements IDaimonJob {
@@ -22,7 +23,7 @@ public class TLDJob implements IDaimonJob {
 		try {
 			doc = Jsoup.connect("http://www.iana.org/domains/root/db").get();
 			
-			DomainUtils.startTransaction();
+			EntityManagerHelper.beginTransaction();
 
 			Elements trs = doc.getElementById("tld-table").getElementsByTag("tr");
 			for (Element tr : trs){
@@ -38,7 +39,7 @@ public class TLDJob implements IDaimonJob {
 				}
 			}
 			
-			DomainUtils.commitTransaction();
+			EntityManagerHelper.commit();
 			
 		} catch (IOException e) {
 			e.printStackTrace();

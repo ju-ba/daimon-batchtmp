@@ -25,7 +25,7 @@ public class DaimonBatch {
     public static void main( String[] args )
     {
     	setLogLevel();
-    	DomainUtils.connectDB();
+//    	DomainUtils.connectDB();
         
         IDaimonJob job = null;
         if(args.length > 0 && args[0].equals("-tlds")){
@@ -47,7 +47,7 @@ public class DaimonBatch {
     	}
         job.runJob(args);
 
-        DomainUtils.closeDB();
+//        DomainUtils.closeDB();
     }
     
     private static void setLogLevel() {

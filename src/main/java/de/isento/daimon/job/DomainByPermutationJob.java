@@ -15,6 +15,7 @@ import org.jsoup.UnsupportedMimeTypeException;
 
 import de.isento.daimon.entities.Domain;
 import de.isento.daimon.entities.DomainUtils;
+import de.isento.daimon.entities.EntityManagerHelper;
 
 public class DomainByPermutationJob implements IDaimonJob {
 
@@ -39,9 +40,9 @@ public class DomainByPermutationJob implements IDaimonJob {
 			chunkSize = Integer.parseInt(args[5]);
 		}
 
-		DomainUtils.startTransaction();
+		EntityManagerHelper.beginTransaction();
 		printAllKLength(allowedDomainChars, k, tldSuffix);
-		DomainUtils.commitTransaction();
+		EntityManagerHelper.commit();
 
 		logger.info("Checked permutations: " + permutationCounter);
 		logger.info("Domains already known: " + knownDomains);
@@ -106,9 +107,9 @@ public class DomainByPermutationJob implements IDaimonJob {
 			}
 			permutationCounter++;
 			if (permutationCounter % 10000 == 0) {
-				DomainUtils.commitTransaction();
-				DomainUtils.clearEntityManager();
-				DomainUtils.startTransaction();
+				EntityManagerHelper.commit();
+				EntityManagerHelper.getEntityManager().clear();
+				EntityManagerHelper.beginTransaction();
 			}
 			return;
 		}

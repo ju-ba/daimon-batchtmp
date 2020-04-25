@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 import de.isento.daimon.entities.DomainUtils;
+import de.isento.daimon.entities.EntityManagerHelper;
 
 public class FileByLineJob implements IDaimonJob {
 
@@ -17,7 +18,7 @@ public class FileByLineJob implements IDaimonJob {
 			if (args.length > 2 && args[2].equals("nocheck")) {
 				check = false;
 			}
-			DomainUtils.startTransaction();
+			EntityManagerHelper.beginTransaction();
 			int domainCounter = 0;
 			while (lineReader.hasNext())
 	        {
@@ -31,15 +32,15 @@ public class FileByLineJob implements IDaimonJob {
 	            }
 
 	            if(domainCounter % 200000 == 0 && domainCounter > 0) {
-	            	DomainUtils.commitTransaction();
-	            	DomainUtils.clearEntityManager();
-	            	DomainUtils.startTransaction();
+	            	EntityManagerHelper.commit();
+	            	EntityManagerHelper.getEntityManager().clear();
+	            	EntityManagerHelper.beginTransaction();
 	            	System.out.println("Domains added: " + domainCounter);
 	            }
 	        }
 			lineReader.close();
 			
-			DomainUtils.commitTransaction();
+			EntityManagerHelper.commit();
 			
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();

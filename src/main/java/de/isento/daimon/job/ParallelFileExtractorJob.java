@@ -16,6 +16,7 @@ import org.jsoup.UnsupportedMimeTypeException;
 
 import de.isento.daimon.entities.Domain;
 import de.isento.daimon.entities.DomainUtils;
+import de.isento.daimon.entities.EntityManagerHelper;
 
 public class ParallelFileExtractorJob implements IDaimonJob {
 	 
@@ -30,7 +31,7 @@ public class ParallelFileExtractorJob implements IDaimonJob {
 		int parallelProcessors = Integer.parseInt(args[3]);
 		int batchSize = Integer.parseInt(args[4]);
 
-		DomainUtils.startTransaction();
+		EntityManagerHelper.beginTransaction();;
 		ArrayList<DomainPermutator> permuatorList = new ArrayList<DomainPermutator>();
 		for (Long i=0L; i<parallelProcessors; i++) {
 			permuatorList.add(new DomainPermutator(i * batchSize, batchSize, k, tld));
@@ -42,12 +43,11 @@ public class ParallelFileExtractorJob implements IDaimonJob {
 			try {
 				entry.join();
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
-		DomainUtils.clearEntityManager();
-		DomainUtils.commitTransaction();
+		EntityManagerHelper.getEntityManager().clear();
+		EntityManagerHelper.commit();
 
 
 		return 0;
