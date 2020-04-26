@@ -9,10 +9,12 @@
 		<jar-file>lib/daimon-persistence-0.0.1-SNAPSHOT.jar</jar-file>
 		
 		<properties>
-			<property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/daimon" />
+			<property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/postgres" />
 			<property name="javax.persistence.jdbc.user" value="postgres" />
-			<property name="javax.persistence.jdbc.password" value="is!dai2020" />
+			<property name="javax.persistence.jdbc.password" value="postgrespwd" />
 			<property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />
+			
+			<property name="hibernate.hikari.maximumPoolSize" value="100"/>
 
 			<property name="hibernate.show_sql" value="false" />
 			<property name="hibernate.format_sql" value="true" />

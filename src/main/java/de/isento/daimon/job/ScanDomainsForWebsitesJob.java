@@ -23,9 +23,9 @@ public class ScanDomainsForWebsitesJob implements IDaimonJob {
 
 		TLD tld = DomainUtils.getTLDMap().get("de");
 
-		int batchSize = 50;
+		int batchSize = 40;
 		int currentPosition = 0;
-		int maxSize = 500;
+		int maxSize = 4000;
 
 		ArrayList<DomainForWebsiteScanner> scannerList = new ArrayList<DomainForWebsiteScanner>();
 
