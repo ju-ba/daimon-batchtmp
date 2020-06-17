@@ -14,7 +14,7 @@
 			<property name="javax.persistence.jdbc.password" value="postgrespwd" />
 			<property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />
 			
-			<property name="hibernate.hikari.maximumPoolSize" value="100"/>
+			<property name="hibernate.hikari.maximumPoolSize" value="500"/>
 
 			<property name="hibernate.show_sql" value="false" />
 			<property name="hibernate.format_sql" value="true" />
