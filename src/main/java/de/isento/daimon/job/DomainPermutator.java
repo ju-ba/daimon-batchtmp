@@ -122,7 +122,6 @@ public class DomainPermutator extends Thread {
 		if (resDomain == null) {
 			return false;
 		} else {
-			DomainUtils.remove(resDomain);
 			return true;
 		}
 	}
